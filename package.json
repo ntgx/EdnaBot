@@ -8,5 +8,9 @@
   },
   "main": "index.js",
   "author": "Nati",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^1.6.3",
+    "node-telegram-bot-api": "^0.27.0"
+  }
 }
