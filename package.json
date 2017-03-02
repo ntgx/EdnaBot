@@ -1,0 +1,12 @@
+{
+  "name": "EdnaBot",
+  "version": "1.0.0",
+  "description": "Edna Mall Telegram Bot",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "main": "index.js",
+  "author": "Nati",
+  "license": "MIT"
+}
