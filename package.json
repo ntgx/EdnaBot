@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Edna Mall Telegram Bot",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/jasmine-node spec",
     "start": "node index.js"
   },
   "main": "index.js",
@@ -12,5 +12,8 @@
   "dependencies": {
     "node-fetch": "^1.6.3",
     "node-telegram-bot-api": "^0.27.0"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
   }
 }
