@@ -8,8 +8,10 @@ const token = process.env.EDNA_BOT_TOKEN
 const port = process.env.PORT || 443
 const host = '0.0.0.0'
 const externalUrl = 'https://edna-bot.herokuapp.com'
-const bot = new TelegramBot(token, { webHook: { port : port, host : host } });
-bot.setWebHook(externalUrl + ':443/bot' + token);
+const options = process.env.DEV ? {polling: true} : { webHook: { port : port, host : host }}
+const bot = new TelegramBot(token, options)
+
+if(options.webhook) bot.setWebHook(externalUrl + ':443/bot' + token)
 
 bot.onText(/\/showtime/, (msg, match) => {
 	return fetch('https://ednamall.herokuapp.com/api')
