@@ -18,6 +18,7 @@ bot.onText(/\/showtime/, (msg, match) => {
 
 bot.onText(/\/subscribe/, (msg, match) => {
 	const chatId = msg.chat.id
+	console.log(msg)
 	//todo 1. store chatId in a database 
 	//todo 2. send a message to everyone on the subscribed list every friday
 	bot.sendMessage(chatId, "Subscribed! I'll send you the schedule every Friday")
