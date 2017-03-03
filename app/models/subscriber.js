@@ -1,13 +1,18 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
+const Schema = mongoose.Schema;
 
-var subscriberSchema = new Schema({
+const subscriberSchema = new Schema({
 	userId: Number,
-	chatId: Number,
+	chatId: { type: Number, required: true, unique: true },
 	username: String,
+	fisrt_name: String,
+	last_name: String,
 	subscribedOn: Number
 });
 
-var Subscriber = mongoose.model('Subscriber', subscriberSchema);
+subscriberSchema.plugin(uniqueValidator);
+
+const Subscriber = mongoose.model('Subscriber', subscriberSchema);
 
 module.exports = Subscriber;

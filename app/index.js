@@ -24,13 +24,18 @@ bot.onText(/\/subscribe/, (msg, match) => {
 	let subscriber = new Subscriber({
 		userId: msg.from.id,
 		username: msg.from.username,
+		first_name: msg.from.first_name,
+		last_name: msg.from.last_name,
 		chatId: msg.chat.id,
 		subscribedOn: msg.date
 	})
 	subscriber.save(function(err) {
 		if (err) {
-			bot.sendMessage(subscriber.chatId, "Subscribe failed 😢 Please try again in a bit")
-			throw err;
+			let resp = err.errors.chatId.kind === 'unique' ? 
+				"So forgetful 😜 You're already subscribed"
+				: "Subscribe failed 😢 Please try again in a bit";
+			bot.sendMessage(subscriber.chatId, resp)
+			return
 		}
 
 		console.log(`Subscriber ${subscriber.chatId} saved successfully!`);
