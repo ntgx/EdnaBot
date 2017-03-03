@@ -14,7 +14,8 @@ schedule.scheduleJob(rule, () => {
             fetch('https://ednamall.herokuapp.com/api')
                 .then(res => res.json())
                 .then(json => {
-                    subscribers.forEach(subscriber => bot.sendMessage(subscriber.chatId, parser.prepareSchedule(json)))
+                    let msg = parser.prepareSchedule(json)
+                    subscribers.forEach(subscriber => bot.sendMessage(subscriber.chatId, msg))
                 })
                 .catch(err => console.log(err))
         }
