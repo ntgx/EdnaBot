@@ -2,6 +2,7 @@ const TelegramBot = require('node-telegram-bot-api')
 const fetch = require('node-fetch')
 const parser = require('./parser')
 const db = require('./db')
+const Subscriber = require('./models/subscriber')
 
 const token = process.env.EDNA_BOT_TOKEN
 const port = process.env.PORT || 443
@@ -18,9 +19,20 @@ bot.onText(/\/showtime/, (msg, match) => {
 })
 
 bot.onText(/\/subscribe/, (msg, match) => {
-	const chatId = msg.chat.id
-	console.log(msg)
-	//todo 1. store chatId in a database 
-	//todo 2. send a message to everyone on the subscribed list every friday
-	bot.sendMessage(chatId, "Subscribed! I'll send you the schedule every Friday")
+	let subscriber = new Subscriber({
+		userId: msg.from.id,
+		username: msg.from.username,
+		chatId: msg.chat.id,
+		subscribedOn: msg.date
+	})
+	subscriber.save(function(err) {
+		if (err) {
+			bot.sendMessage(subscriber.chatId, "Subscribe failed 😢 Please try again in a bit")
+			throw err;
+		}
+
+		console.log(`Subscriber ${subscriber.chatId} saved successfully!`);
+		bot.sendMessage(subscriber.chatId, "Subscribed! I'll send you the schedule every Friday 😉")
+	});
+	//todo send a message to everyone on the subscribed list every friday
 })
