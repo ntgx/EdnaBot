@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
+const Schema = mongoose.Schema
 
 const subscriberSchema = new Schema({
 	userId: Number,
@@ -9,10 +9,10 @@ const subscriberSchema = new Schema({
 	fisrt_name: String,
 	last_name: String,
 	subscribedOn: Number
-});
+})
 
-subscriberSchema.plugin(uniqueValidator);
+subscriberSchema.plugin(uniqueValidator)
 
-const Subscriber = mongoose.model('Subscriber', subscriberSchema);
+const Subscriber = mongoose.model('Subscriber', subscriberSchema)
 
-module.exports = Subscriber;
+module.exports = Subscriber

@@ -115,6 +115,10 @@ core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
+cron-parser@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cron-parser/-/cron-parser-1.1.0.tgz#075b84c459c155e8c482ab4d56aff99dae58352e"
+
 cryptiles@2.x.x:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
@@ -450,6 +454,10 @@ lodash@^4.13.1, lodash@^4.14.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
+long-timeout@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/long-timeout/-/long-timeout-0.0.2.tgz#f36449ba89629d13a7a2b2523a4db9dd66e3ff68"
+
 lru-cache@2:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-2.7.3.tgz#6d4524e8b955f95d4f5b58851ce21dd72fb4e952"
@@ -560,6 +568,13 @@ node-fetch@^1.6.3:
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
+
+node-schedule@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/node-schedule/-/node-schedule-1.2.0.tgz#f03d4ebe71b0573e1708ddae0aa45d1658450cf1"
+  dependencies:
+    cron-parser "1.1.0"
+    long-timeout "0.0.2"
 
 node-telegram-bot-api@^0.27.0:
   version "0.27.0"

@@ -29,7 +29,7 @@ bot.onText(/\/subscribe/, (msg, match) => {
 		chatId: msg.chat.id,
 		subscribedOn: msg.date
 	})
-	subscriber.save(function(err) {
+	subscriber.save(err => {
 		if (err) {
 			let resp = err.errors.chatId.kind === 'unique' ? 
 				"So forgetful 😜 You're already subscribed"
@@ -38,8 +38,8 @@ bot.onText(/\/subscribe/, (msg, match) => {
 			return
 		}
 
-		console.log(`Subscriber ${subscriber.chatId} saved successfully!`);
+		console.log(`Subscriber ${subscriber} saved successfully!`)
 		bot.sendMessage(subscriber.chatId, "Subscribed! I'll send you the schedule every Friday 😉")
-	});
+	})
 	//todo send a message to everyone on the subscribed list every friday
 })

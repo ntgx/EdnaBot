@@ -13,6 +13,7 @@
     "mongoose": "^4.8.5",
     "mongoose-unique-validator": "^1.0.4",
     "node-fetch": "^1.6.3",
+    "node-schedule": "^1.2.0",
     "node-telegram-bot-api": "^0.27.0"
   },
   "devDependencies": {
