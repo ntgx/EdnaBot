@@ -1,6 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api')
 const fetch = require('node-fetch')
 const parser = require('./parser')
+const db = require('./db')
 
 const token = process.env.EDNA_BOT_TOKEN
 const port = process.env.PORT || 443
