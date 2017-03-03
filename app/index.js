@@ -3,18 +3,16 @@ const fetch = require('node-fetch')
 const parser = require('./parser')
 const db = require('./db')
 const Subscriber = require('./models/subscriber')
+const config = require('./config')
 
 const token = process.env.EDNA_BOT_TOKEN
-const port = process.env.PORT || 443
-const host = '0.0.0.0'
-const externalUrl = 'https://edna-bot.herokuapp.com'
-const options = process.env.DEV ? {polling: true} : { webHook: { port : port, host : host }}
+const options = process.env.DEV ? {polling: true} : { webHook: { port : config.PORT, host : config.HOST }}
 const bot = new TelegramBot(token, options)
 
-if(options.webhook) bot.setWebHook(externalUrl + ':443/bot' + token)
+if(options.webhook) bot.setWebHook(config.EDNA_BOT_URI + ':443/bot' + token)
 
 bot.onText(/\/showtime/, (msg, match) => {
-	return fetch('https://ednamall.herokuapp.com/api')
+	return fetch(config.EDNA_API)
 	    .then(res => res.json())
 	    .then(json => bot.sendMessage(msg.chat.id, parser.prepareSchedule(json)))
 	    .catch(err => console.log(err))
