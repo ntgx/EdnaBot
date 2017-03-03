@@ -39,5 +39,4 @@ bot.onText(/\/subscribe/, (msg, match) => {
 		console.log(`Subscriber ${subscriber} saved successfully!`)
 		bot.sendMessage(subscriber.chatId, "Subscribed! I'll send you the schedule every Friday 😉")
 	})
-	//todo send a message to everyone on the subscribed list every friday
 })
