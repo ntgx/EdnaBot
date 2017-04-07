@@ -4,12 +4,8 @@ const parser = require('./parser')
 const db = require('./db')
 const Subscriber = require('./models/subscriber')
 const config = require('./config')
-
-const token = process.env.EDNA_BOT_TOKEN
-const options = process.env.DEV ? {polling: true} : { webHook: { port : config.PORT, host : config.HOST }}
-const bot = new TelegramBot(token, options)
-
-if(options.webhook) bot.setWebHook(config.EDNA_BOT_URI + ':443/bot' + token)
+const scheduler = require('./scheduler')
+const bot = require('./bot')
 
 bot.onText(/\/showtime/, (msg, match) => {
 	return fetch(config.EDNA_API)
@@ -32,11 +28,11 @@ bot.onText(/\/subscribe/, (msg, match) => {
 			let resp = err.errors.chatId.kind === 'unique' ? 
 				"So forgetful 😜 You're already subscribed"
 				: "Subscribe failed 😢 Please try again in a bit";
-			bot.sendMessage(subscriber.chatId, resp)
+			bot.sendMessage(msg.chat.id, resp)
 			return
 		}
 
 		console.log(`Subscriber ${subscriber} saved successfully!`)
-		bot.sendMessage(subscriber.chatId, "Subscribed! I'll send you the schedule every Friday 😉")
+		bot.sendMessage(msg.chat.id, "Subscribed! I'll send you the schedule every Friday 😉")
 	})
 })
