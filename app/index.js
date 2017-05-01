@@ -41,3 +41,7 @@ bot.onText(/\/subscribe/, (msg, match) => {
 		bot.sendMessage(msg.chat.id, "Subscribed! I'll send you the schedule every Friday 😉")
 	})
 })
+
+bot.onText(/^[^\/].+/, (msg, match) => {
+	bot.sendMessage(msg.chat.id, 'For feedback or questions please contact @oNati');
+})
