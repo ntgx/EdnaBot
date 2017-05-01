@@ -8,13 +8,18 @@ const scheduler = require('./scheduler')
 const bot = require('./bot')
 
 bot.onText(/\/showtime/, (msg, match) => {
+	console.log('showtime called');
 	return fetch(config.EDNA_API)
 	    .then(res => res.json())
 	    .then(json => bot.sendMessage(msg.chat.id, parser.prepareSchedule(json)))
-	    .catch(err => console.log(err))
+	    .catch(err => {
+				bot.sendMessage(msg.chat.id, 'Wef yelem 🤕 please try again in a bit!');
+				console.log(err);
+			});
 })
 
 bot.onText(/\/subscribe/, (msg, match) => {
+	console.log('subscribe called')
 	let subscriber = new Subscriber({
 		userId: msg.from.id,
 		username: msg.from.username,
