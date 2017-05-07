@@ -3,19 +3,39 @@ const fetch = require('node-fetch')
 const parser = require('./parser')
 const db = require('./db')
 const Subscriber = require('./models/subscriber')
+const Schedule = require('./models/schedule')
 const config = require('./config')
 const scheduler = require('./scheduler')
 const bot = require('./bot')
 
 bot.onText(/\/showtime/, (msg, match) => {
 	console.log('showtime called');
-	return fetch(config.EDNA_API)
-	    .then(res => res.json())
-	    .then(json => bot.sendMessage(msg.chat.id, parser.prepareSchedule(json)))
-	    .catch(err => {
-				bot.sendMessage(msg.chat.id, 'Wef yelem 🤕 please try again in a bit!');
-				console.log(err);
-			});
+	Schedule.findOne({ date: new Date().toDateString() }, (err, schedule) => {
+		if (err || schedule === null) {
+			console.log('couldnt get schedule from mongo:', err);
+			fetch(config.EDNA_API)
+				.then(res => res.json())
+				.then(json => {
+					console.log('got from api');
+					bot.sendMessage(msg.chat.id, parser.prepareSchedule(json));
+					let schedule = new Schedule({
+						date: new Date().toDateString(),
+						json: json,
+					})
+					schedule.save(err => {
+						if (err) console.log('Save to mongo failed', err);
+						else console.log(`Saved to mongo successfully!`);
+					});
+				})
+				.catch(err => {
+					bot.sendMessage(msg.chat.id, 'Wef yelem 🤕 please try again in a bit!');
+					console.log(err);
+				});
+			return;
+		}
+		console.log('got schedule from mongo');
+		bot.sendMessage(msg.chat.id, parser.prepareSchedule(schedule.json));
+	});
 })
 
 bot.onText(/\/subscribe/, (msg, match) => {
@@ -40,8 +60,4 @@ bot.onText(/\/subscribe/, (msg, match) => {
 		console.log(`Subscriber ${subscriber} saved successfully!`)
 		bot.sendMessage(msg.chat.id, "Subscribed! I'll send you the schedule every Friday 😉")
 	})
-})
-
-bot.onText(/^[^\/].+/, (msg, match) => {
-	bot.sendMessage(msg.chat.id, 'For feedback or questions please contact @oNati');
 })
