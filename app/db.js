@@ -1,9 +1,10 @@
-const mongoose = require('mongoose')
-mongoose.Promise = global.Promise
-mongoose.connect(process.env.EDNA_MONGO_URI)
+const mongoose = require('mongoose');
 
-var db = mongoose.connection
-db.on('error', (err) => console.log(err))
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.EDNA_MONGO_URI);
+
+const db = mongoose.connection;
+db.on('error', err => console.log(err));
 db.once('open', () => {
-    console.log("we're connected!")
-})
+  console.log("we're connected!");
+});
