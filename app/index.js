@@ -62,3 +62,7 @@ bot.onText(/\/subscribe/, (msg) => {
     bot.sendMessage(msg.chat.id, "Subscribed! I'll send you the schedule every Friday 😉");
   });
 });
+
+bot.onText(/^[^/].+/, (msg) => {
+  bot.sendMessage(msg.chat.id, 'For feedback or questions please contact @oNati');
+});
